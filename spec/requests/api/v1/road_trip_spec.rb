@@ -60,7 +60,7 @@ describe 'Roadtrip API' do
   #
   end
 
-  it 'can enter a destination unreachable by automobile and receive travel_time and empty weather_at_eta hash' do
+  it 'can enter a destination unreachable by automobile and receive travel_time as impossible and empty weather_at_eta hash' do
     headers = {
       'CONTENT-TYPE' => 'application/json',
       'ACCEPT' => 'application/json'
@@ -131,37 +131,20 @@ describe 'Roadtrip API' do
     expect(response.body).to eq("Unauthorized: invalid or missing token")
   end
 
+  it 'can forgo destination in params body and receive error message' do
+    headers = {
+      'CONTENT-TYPE' => 'application/json',
+      'ACCEPT' => 'application/json'
+    }
+    request_data = {
+      "origin": "Denver,CO",
+      "destination": "",
+      "api_key": "#{@current_user.api_key}"
+    }
+    params = JSON.generate(request_data)
+    post '/api/v1/road_trip', headers: headers, params: params
 
-  # r= JSON.parse(response.body, symbolize_names: true)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # it "can login to user account" do
-    # headers = {
-    #   'CONTENT-TYPE' => 'application/json',
-    #   'ACCEPT' => 'application/json'
-    # }
-    #
-    # login_params = {
-    #   'email': 'whatever@example.com',
-    #   'password': 'password'
-    # }
-    # params_body = JSON.generate(login_params)
-    #
-    #
-    # post '/api/v1/sessions', headers: headers, params: params_body
-    #
-    # expect(response).to be_successful
-
+    expect(response.status).to eq(400)
+    expect(response.body).to eq("ERROR: At least two locations must be provided.")
+  end
 end
