@@ -1,6 +1,9 @@
 class ForecastFacade
   def self.get_weather(location)
     result = MapquestService.city_results(location)
+    #   if result[:info][:statuscode] == 400
+    #     render body: "ERROR: #{result[:info][:messages][0]}", status: 404
+    #   end
     params = result[:results][0][:locations][0][:latLng]
     results = WeatherService.get_forecast(params)
 
