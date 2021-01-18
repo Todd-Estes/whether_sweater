@@ -1,7 +1,6 @@
 class MapquestFacade
   def self.get_trip(origin, destination)
     trip_data = MapquestService.trip_results(origin, destination)
-    require "pry"; binding.pry
       if trip_data[:info][:statuscode] == 0
     # if trip_data[:info][:statuscode] == 0
         destination_coords = MapquestService.city_results(destination)[:results][0][:locations][0][:latLng]
