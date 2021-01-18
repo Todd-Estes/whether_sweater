@@ -16,7 +16,7 @@ describe 'Sessions API' do
 
     login_params = {
       'email': 'whatever@example.com',
-      'password': 'wrongpassword'
+      'password': 'password'
     }
     params_body = JSON.generate(login_params)
 
@@ -25,8 +25,8 @@ describe 'Sessions API' do
 
     expect(response).to be_successful
 
+
     # var = JSON.parse(response.body, symbolize_names: true)
-    require "pry"; binding.pry
 
     end
 

@@ -5,7 +5,7 @@ class Api::V1::SessionsController < ApplicationController
     if current_user && current_user.authenticate(session_params[:password])
       render json: UsersSerializer.new(current_user), status: 200
     else
-      render body: "YOU CANT FOOL ME",  status: 200
+      render body: "YOU CANT FOOL ME",  status: 400
     end
   end
 
