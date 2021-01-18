@@ -5,11 +5,12 @@ class WeatherService
       f.params[:lat] = params[:lat]
       f.params[:lon] = params[:lng]
     end
-    var = JSON.parse(response.body, symbolize_names: true)
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   def self.conn
     Faraday.new('https://api.openweathermap.org') do |f|
+      f.params[:units] = 'imperial'
       f.params[:appid] = ENV['WEATHER_API']
     end
   end

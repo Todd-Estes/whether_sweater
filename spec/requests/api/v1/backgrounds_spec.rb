@@ -29,9 +29,9 @@ describe 'Backgrounds API' do
     expect(image_info[:data][:attributes]).to be_a(Hash)
 
 
-  expect(image_info[:data][:type][:attributes]).to be_a(Hash)
-  expect(image_info[:data][:type][:attributes]).to have_key(:image)
+    expect(image_info[:data][:attributes]).to be_a(Hash)
+    expect(image_info[:data][:attributes]).to have_key(:image)
 
-  expect(image_info[:data][:type][:attributes][:iamge]).to be_a(Hash)
+    expect(image_info[:data][:attributes][:image]).to be_a(Hash)
   end
 end

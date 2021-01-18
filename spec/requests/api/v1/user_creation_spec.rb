@@ -32,14 +32,14 @@ describe 'Users API' do
     create_params = {
       # 'email': 'whatever@example.com',
       'password': 'password',
-      'password_confirmation': '42069'
+      'password_confirmation': '420'
     }
 
     params_body = JSON.generate(create_params)
 
     post '/api/v1/users', headers: headers, params: params_body
 
-    expect(response.body).to eq("ERROR: email can't be blank; password_confirmation doesn't match Password")
+    expect(response.body).to eq("ERROR: password_confirmation doesn't match Password; email can't be blank")
     expect(response.status).to eq 400
   end
 end
