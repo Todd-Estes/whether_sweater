@@ -1,5 +1,4 @@
 class BackgroundService
-
   def self.get_image(params)
     response = self.conn.get('/v7.0/images/search?') do |f|
       f.params['q'] = params
