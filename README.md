@@ -1,24 +1,51 @@
-# README
+# WHETHER, SWEATER
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+## Project Information
+_Whether, Sweater_ is the final individual project for the Module 3 within Turing School of Software Design's Backend program. The project is a representation of the backend of a service-oriented designed application that provides a frontend with data pertaining to weather and travel data, communicated through various APIs.
 
-* Ruby version
+## Learning Goals
 
-* System dependencies
+  * Consume external APIs
 
-* Configuration
+  * Build API's that return JSON responses
 
-* Database creation
+  * Refactor code for better code for improved organization/readability
 
-* Database initialization
+  * Practice project management with project boards/daily standups/group retros
 
-* How to run the test suite
+  * Utilize workflow: small commits, descriptive pull requests and code review
 
-* Services (job queues, cache servers, search engines, etc.)
+  * Write thorough and understandable documentation
+  
+  
+  ## APIs
+  To use this application, you will need to access to one unique API keys from each of these three sources:
+  
+https://developer.mapquest.com/documentation/geocoding-api/
 
-* Deployment instructions
+https://developer.mapquest.com/documentation/directions-api/
 
-* ...
+https://openweathermap.org/api/one-call-api
+
+https://www.microsoft.com/en-us/bing/apis/bing-image-search-api
+
+The Bing one is a but tricky. Two APIs wiil be called from Mapquest. API endpoint documentation is available on each site.
+
+
+# How to Use 
+
+For usage on your local machine follow the instructions listed below:
+
+```
+https://github.com/Todd-Estes/whether_sweater.git
+cd whether_sweater
+bundle install
+rake db:{create,migrate}
+firgaro install
+# Setup ENV Variables in application.yml
+  
+  
+  ## Contacts
+
+#### Todd Estes: [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/toddwestes/), [Email](mailto:elestes@gmail.com), [GitHub](https://github.com/Todd-Estes)
