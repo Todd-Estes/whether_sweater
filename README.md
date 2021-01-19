@@ -44,8 +44,10 @@ bundle install
 rake db:{create,migrate}
 firgaro install
 # Setup ENV Variables in application.yml
+
+ ```
   
   
-  ## Contacts
+ ## Contacts
 
 #### Todd Estes: [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/toddwestes/), [Email](mailto:elestes@gmail.com), [GitHub](https://github.com/Todd-Estes)
