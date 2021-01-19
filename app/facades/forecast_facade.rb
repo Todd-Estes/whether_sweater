@@ -1,19 +1,20 @@
 class ForecastFacade
   def self.get_weather(location)
     result = MapquestService.city_results(location)
-    #   if result[:info][:statuscode] == 400
-    #     render body: "ERROR: #{result[:info][:messages][0]}", status: 404
-    #   end
-    params = result[:results][0][:locations][0][:latLng]
-    results = WeatherService.get_forecast(params)
+    if result[:info][:statuscode] == 400
+      return result
+    else
+      params = result[:results][0][:locations][0][:latLng]
+      results = WeatherService.get_forecast(params)
 
-    current = CurrentPoro.new(results[:current])
+      current = CurrentPoro.new(results[:current])
 
-    daily = create_daily_poro(results[:daily][0..4])
+      daily = create_daily_poro(results[:daily][0..4])
 
-    hourly = create_hourly_poro(results[:hourly][0..7])
+      hourly = create_hourly_poro(results[:hourly][0..7])
 
-    Forecast.new(current, daily, hourly)
+      Forecast.new(current, daily, hourly)
+   end
   end
 
   def self.create_daily_poro(data)

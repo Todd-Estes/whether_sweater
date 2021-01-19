@@ -6,6 +6,14 @@ class MapquestService
     JSON.parse(response.body, symbolize_names: true)
   end
 
+  def self.trip_results(params)
+    response = self.conn.get('/directions/v1/route?') do |f|
+      f.params[:from] = params[:origin]
+      f.params[:to] = params[:destination]
+    end
+    JSON.parse(response.body, symbolize_names: true)
+  end
+
   def self.conn
     Faraday.new('http://www.mapquestapi.com') do |f|
       f.params[:key] = ENV['MAPQUEST_API_KEY']

@@ -121,11 +121,15 @@ describe 'Forcast API' do
     #~~~~~~~~
   end
 
-  xit "gets error message if query is unsuccessful" do
-    params = {
-      location: ""
+  it "gets error message if query is unsuccessful" do
+    headers = {
+      'CONTENT-TYPE' => 'application/json',
+      'ACCEPT' => 'application/json'
     }
 
-    get '/api/v1/forecast?', params: params
+    get '/api/v1/forecast?location=', headers: headers
+
+    expect(response.status).to eq(400)
+    expect(response.body).to eq("ERROR: Illegal argument from request: Insufficient info for location")
   end
 end
