@@ -4,17 +4,20 @@ class MunchiesFacade
     hourly_array = weather_object.hourly_weather
 
     route_body = MapquestFacade.get_trip(params)
+    travel_time = route_body[:route][:realTime]
 
     eta_time = get_arrival_time(route_body[:route][:realTime])
     weather_time = round_eta_time(eta_time)
 
     eta_weather = detect_eta_weather(weather_time, hourly_array)
-    require "pry"; binding.pry
 
     open_time = convert_time(weather_time)
 
 
     restaurant_info = YelpFacade.get_restaurant(params, open_time)
+
+    Munchie.new(restaurant_info, eta_weather, params, travel_time)
+
   end
 
 
