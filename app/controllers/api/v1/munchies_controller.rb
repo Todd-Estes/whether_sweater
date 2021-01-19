@@ -1,7 +1,8 @@
 class Api::V1::MunchiesController < ApplicationController
 
   def index
-    MunchiesFacade.get_munchies(params)
+    munchie_object = MunchiesFacade.get_munchies(params)
+    var = render json: MunchieSerializer.new(munchie_object)
   end
 
 
