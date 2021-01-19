@@ -12,16 +12,15 @@ describe 'Roadtrip API' do
     'CONTENT-TYPE' => 'application/json',
     'ACCEPT' => 'application/json'
   }
-  request_data = {
+  body = {
     "origin": "Denver,CO",
     "destination": "Pueblo, CO",
     "api_key": "#{@current_user.api_key}"
   }
-  params = JSON.generate(request_data)
-
-  post '/api/v1/road_trip', headers: headers, params: params
+  post '/api/v1/road_trip', headers: headers, params: JSON.generate(body)
 
   expect(response).to be_successful
+  expect(response.status).to eq(200)
   roadtrip = JSON.parse(response.body, symbolize_names: true)
 
   expect(roadtrip).to be_a(Hash)
@@ -65,16 +64,15 @@ describe 'Roadtrip API' do
       'CONTENT-TYPE' => 'application/json',
       'ACCEPT' => 'application/json'
     }
-    request_data = {
+    body = {
       "origin": "Denver,CO",
       "destination": "London",
       "api_key": "#{@current_user.api_key}"
     }
-    params = JSON.generate(request_data)
-
-    post '/api/v1/road_trip', headers: headers, params: params
+    post '/api/v1/road_trip', headers: headers, params: JSON.generate(body)
 
     expect(response).to be_successful
+    expect(response.status).to eq(200)
     roadtrip = JSON.parse(response.body, symbolize_names: true)
 
     expect(roadtrip).to be_a(Hash)
@@ -103,12 +101,11 @@ describe 'Roadtrip API' do
       'CONTENT-TYPE' => 'application/json',
       'ACCEPT' => 'application/json'
     }
-    request_data = {
+    body = {
       "origin": "Denver,CO",
       "destination": "Pueblo,CO"
     }
-    params = JSON.generate(request_data)
-    post '/api/v1/road_trip', headers: headers, params: params
+    post '/api/v1/road_trip', headers: headers, params: JSON.generate(body)
 
     expect(response.status).to eq(401)
     expect(response.body).to eq("Unauthorized: invalid or missing token")
@@ -119,13 +116,12 @@ describe 'Roadtrip API' do
       'CONTENT-TYPE' => 'application/json',
       'ACCEPT' => 'application/json'
     }
-    request_data = {
+    body = {
       "origin": "Denver,CO",
       "destination": "Pueblo,CO",
       "api_key": "1234567890123456789012345678"
     }
-    params = JSON.generate(request_data)
-    post '/api/v1/road_trip', headers: headers, params: params
+    post '/api/v1/road_trip', headers: headers, params: JSON.generate(body)
 
     expect(response.status).to eq(401)
     expect(response.body).to eq("Unauthorized: invalid or missing token")
@@ -136,15 +132,51 @@ describe 'Roadtrip API' do
       'CONTENT-TYPE' => 'application/json',
       'ACCEPT' => 'application/json'
     }
-    request_data = {
+    body = {
       "origin": "Denver,CO",
       "destination": "",
       "api_key": "#{@current_user.api_key}"
     }
-    params = JSON.generate(request_data)
-    post '/api/v1/road_trip', headers: headers, params: params
+    post '/api/v1/road_trip', headers: headers, params: JSON.generate(body)
 
     expect(response.status).to eq(400)
     expect(response.body).to eq("ERROR: At least two locations must be provided.")
+  end
+
+  it 'can digits for location in params body and and receive travel_time as impossible and empty weather_at_eta hash' do
+    headers = {
+      'CONTENT-TYPE' => 'application/json',
+      'ACCEPT' => 'application/json'
+    }
+    body = {
+      "origin": "Denver,CO",
+      "destination": "00000000",
+      "api_key": "#{@current_user.api_key}"
+    }
+    post '/api/v1/road_trip', headers: headers, params: JSON.generate(body)
+
+    expect(response).to be_successful
+    expect(response.status).to eq(200)
+    roadtrip = JSON.parse(response.body, symbolize_names: true)
+
+    expect(roadtrip).to be_a(Hash)
+    expect(roadtrip).to have_key(:data)
+    expect(roadtrip[:data]).to be_a(Hash)
+    expect(roadtrip[:data]).to have_key(:id)
+    expect(roadtrip[:data][:id]).to eq(nil)
+    expect(roadtrip[:data]).to have_key(:type)
+    expect(roadtrip[:data][:type]).to be_a(String)
+    expect(roadtrip[:data]).to have_key(:attributes)
+    expect(roadtrip[:data][:attributes]).to be_a(Hash)
+
+    expect(roadtrip[:data][:attributes]).to have_key(:start_city)
+    expect(roadtrip[:data][:attributes][:start_city]).to be_a(String)
+    expect(roadtrip[:data][:attributes]).to have_key(:end_city)
+    expect(roadtrip[:data][:attributes][:end_city]).to be_a(String)
+    expect(roadtrip[:data][:attributes]).to have_key(:travel_time)
+    expect(roadtrip[:data][:attributes][:travel_time]).to be_a(String)
+    expect(roadtrip[:data][:attributes][:travel_time]).to eq("impossible")
+    expect(roadtrip[:data][:attributes]).to have_key(:weather_at_eta)
+    expect(roadtrip[:data][:attributes][:weather_at_eta]).to eq(nil)
   end
 end

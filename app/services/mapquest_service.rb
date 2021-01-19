@@ -8,10 +8,13 @@ class MapquestService
 
   def self.trip_results(params)
     response = self.conn.get('/directions/v1/route?') do |f|
+      # f.params[:from] = "39.750307,-104.999472"
+      #for ^lat, lng
       f.params[:from] = params[:origin]
       f.params[:to] = params[:destination]
     end
-    JSON.parse(response.body, symbolize_names: true)
+    var = JSON.parse(response.body, symbolize_names: true)
+    require "pry"; binding.pry
   end
 
   def self.conn
