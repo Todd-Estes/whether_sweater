@@ -4,7 +4,6 @@ describe 'Forecast Poro' do
   it "exists" do
     location = 'denver,co'
     forecast = ForecastFacade.get_weather(location)
-
     expect(forecast).to be_a(Forecast)
     expect(forecast.id).to eq(nil)
     expect(forecast.current_weather).to be_a(CurrentPoro)
