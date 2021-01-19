@@ -1,17 +1,17 @@
 class MapquestService
   def self.city_results(location)
     response = self.conn.get('/geocoding/v1/address?') do |f|
-      f.params[:location] = location
+      f.params[:location] = location[:end]
     end
-    JSON.parse(response.body, symbolize_names: true)
+    var = JSON.parse(response.body, symbolize_names: true)
   end
 
   def self.trip_results(params)
     response = self.conn.get('/directions/v1/route?') do |f|
       # f.params[:from] = "39.750307,-104.999472"
       #for ^lat, lng
-      f.params[:from] = params[:origin]
-      f.params[:to] = params[:destination]
+      f.params[:from] = params[:start]
+      f.params[:to] = params[:end]
     end
     JSON.parse(response.body, symbolize_names: true)
   end
