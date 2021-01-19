@@ -1,4 +1,5 @@
 class ForecastFacade
+  #add change for final
   def self.get_weather(location)
     result = MapquestService.city_results(location)
     if result[:info][:statuscode] == 400
