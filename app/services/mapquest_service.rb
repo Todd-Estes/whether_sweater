@@ -13,8 +13,7 @@ class MapquestService
       f.params[:from] = params[:origin]
       f.params[:to] = params[:destination]
     end
-    var = JSON.parse(response.body, symbolize_names: true)
-    require "pry"; binding.pry
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   def self.conn
