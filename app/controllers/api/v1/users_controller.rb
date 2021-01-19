@@ -5,9 +5,9 @@ class Api::V1::UsersController < ApplicationController
     if new_user.save
       render json: UsersSerializer.new(new_user), status: 201
     else
-     render body: create_error_message(new_user), status: 400
+      error_message = render_error_message(new_user.errors.messages)
+      render body: "ERROR:#{error_message}", status: 400
     end
-
   end
 
   private
@@ -16,11 +16,11 @@ class Api::V1::UsersController < ApplicationController
     params.permit(:email, :password, :password_confirmation)
   end
 
-  def create_error_message(resource)
-    error_message = 'ERROR: '
-      resource.errors.messages.each do |attribute, message|
-        error_message += ("#{attribute} #{message[0]}; ")
+    def render_error_message(messages)
+      message_string = ''
+      messages.map do |key, value|
+        message_string += "#{key} #{value[0]}; "
       end
-    return error_message.delete_suffix('; ')
-  end
+      message_string
+    end
 end
