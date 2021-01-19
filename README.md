@@ -44,7 +44,6 @@ bundle install
 rake db:{create,migrate}
 firgaro install
 # Setup ENV Variables in application.yml
-
  ```
   
   
