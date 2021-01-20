@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Backgrounds Facade' do
+describe 'Backgrounds Facade', :vcr do
   it 'calls BackgroundService for location image data and create BackgroundImage poro' do
     location = 'denver,co'
 

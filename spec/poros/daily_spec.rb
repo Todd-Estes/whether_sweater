@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Daily Poro' do
+describe 'Daily Poro', :vcr do
   it "exists" do
     location = 'denver,co'
     map_results = MapquestService.city_results(location)

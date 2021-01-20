@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Mapquest Service' do
+describe 'Mapquest Service', :vcr do
   describe 'class methods' do
     context '#get_results' do
       it 'can call Mapquest Geocoding API to get coordinates with location parameter' do

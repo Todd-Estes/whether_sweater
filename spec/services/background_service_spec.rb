@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Background Service' do
+describe 'Background Service', :vcr do
   describe 'class methods' do
     context '#city_results' do
       it 'can get image json from Bing Image API' do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Users Endpoint' do
+describe 'Users Endpoint', :vcr do
   describe 'user account creation' do
     it "can create a user account" do
       headers = {

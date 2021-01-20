@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Forcast API' do
+describe 'Forcast API', :vcr do
   it "can retrieve weather data for a requested city" do
 
     headers = {
