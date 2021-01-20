@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Forecast Poro' do
+describe 'Forecast Poro', :vcr do
   it "exists" do
     location = 'denver,co'
     forecast = ForecastFacade.get_weather(location)

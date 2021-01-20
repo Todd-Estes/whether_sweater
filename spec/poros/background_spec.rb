@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Background Poro' do
+describe 'Background Poro', :vcr do
   it "exists" do
     location = 'denver,co'
     image_data = BackgroundService.get_image(location)

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe 'Forecast Facade' do
+describe 'Forecast Facade', :vcr do
   it 'compiles data for forecast given location data parameters' do
     location = 'austin,tx'
     forecast = ForecastFacade.get_weather(location)

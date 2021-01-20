@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Sessions API' do
+describe 'Sessions API', :vcr do
   describe 'user login process' do
     before :each do
     @current_user = User.create(email: 'whatever@example.com',

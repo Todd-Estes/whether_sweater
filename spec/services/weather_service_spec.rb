@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Weather Service' do
+describe 'Weather Service', :vcr do
   describe 'class methods' do
     context '#get_forecast' do
       it 'returns city weather data' do
