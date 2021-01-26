@@ -1,0 +1,16 @@
+language: ruby
+rbenv:
+- 2.5.3
+addons:
+  postgresql: 9.6
+script:
+- bundle exec rails db:{create,migrate} RAILS_ENV=test
+- bundle exec rspec
+deploy:
+  provider: heroku
+  api_key:
+    secure: EFbrhWhk8ZQo1jKOD7svrKpdFPq92kYqUujpfMORL7ix3psovvuHpWKdIaz7gsTkCZmRSsReKuPWEXYDN9J8TEh78wtfMrxfqD2VmHxfB4Q/mN9HMwBbPtssRwku9t7WxfKuYGo0+ObEZ3ETZI8RNBD422OOOXz/UJ20psc/8N2Qxw2Shgam2ViKDkT9xZ0n01PyTciVb2Im/Zf0U0sPduAr/lags5zTqD4o0QoJ/m4GMz2IFVdcA6Ze9meoHXbt/I0wEPiepqB5GQe65nhkLq1Lo3jenjnJwbUxLqiUJwwTIn9WolBDOKswqU0ELMurK19mSCXFM46SvGzacAIKmCWhgBmPlMyZsK8fxIXFdU3RyNP0KmbelsvE/d6TIz48S+/gaEaWgZxdM6kTZp3ZX41wCGPSeCb91qOz7JsJpyQz9FS4uEXemgCTJSAN/BnomX5Xdo6TWZOtb4u6IAULpj4773Cw3GBBXjIIvWPtqcCvYQP5JeKgb9zgbRsUrRNbpJ3leia/h/wMQQOJr1aCmwiSuoaIM1GjM5VekeO8MB99jzWcL6MQj1GyD1H7Lhkxn9JMJcovZFvYF80kkywugrfJAhXUxlduPmR5h5eI61gDxHBLJ/fqiqup8+WxgViARbcsdJYCfv4mU8MOAX43FJvvsMcf4wfxWWeFBrrS6Oc=
+  app: forgotten-marmot
+  on:
+    repo: todd-estes/whether_sweater
+  run: rails db:migrate
