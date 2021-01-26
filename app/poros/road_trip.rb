@@ -6,7 +6,8 @@ class RoadTrip
     unless actual_weather.nil?
       @start_city = params[:origin]
       @end_city = params[:destination]
-      @travel_time = actual_weather.time
+      @travel_time = Time.at(trip_data[:route][:realTime]).utc.strftime("%H:%M:%S")
+      # @travel_time = actual_weather.time
       @weather_at_eta = {
         temperature: actual_weather.temperature,
         conditions: actual_weather.conditions
